@@ -1,0 +1,40 @@
+<div class="text-center mt-3">
+  <h1><strong>{{likesParam === 'Likers' ? 'Members who like me ' : 'Members who I\'ve Liked'}} : {{pagination.totalItems}}</strong></h1>
+</div>
+<br>
+<div class="container mt-3">
+
+<div class="row">
+    <button mat-raised-button style="width:20%" class="btn btn-dark" color="primary" [(ngModel)]="likesParam" btnRadio="Likers" (click)="loadUsers()">Likes Me</button>
+    <button mat-raised-button style="width:20%" class="btn btn-dark ml-3" color="primary" [(ngModel)]="likesParam" btnRadio="Likees" (click)="loadUsers()">My Likes</button>
+</div>
+
+<br>
+
+<div class="row">
+  <div *ngFor="let user of users" class="col-sm-6 col-md-4 col-lg-4 col-xl-2">
+    <app-member-card [user]="user"></app-member-card>
+  </div>
+</div>
+
+<form class="form-inline" #form="ngForm" (ngSubmit)="loadUsers()" novalidate>
+  <h4><label for="gender"><strong>Show :</strong></label></h4>
+      <mat-radio-group style="width: 130px; margin-left:40px;" id="gender"
+      [(ngModel)]="userParams.gender" name="gender">
+        <mat-radio-button *ngFor="let gender of genderList" [value]="gender.value">
+          {{gender.display}}
+        </mat-radio-button>
+      </mat-radio-group>
+    <button mat-raised-button color="primary" type="submit" class="btn btn-dark" style="margin-left:20px">Apply Filters</button>
+  </form>
+  <br>
+
+</div>
+
+<div class="d-flex justify-content-center">
+<pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+  (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+  >
+
+</pagination>
+</div>

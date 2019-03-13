@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <div class="row">
+    <h1>{{user.knownAs}}'s Profile</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+          <img class="card-img-top img-thumbnail" src="{{user.photoUrl || '../../../assets/user.png'}}" alt="{{user.knownAs}}">
+        <div class="card-body">
+          <div>
+            <strong>Location</strong>
+            <p>{{user.city}}, {{user.country}}</p>
+          </div>
+          <hr>
+          <div>
+             <strong>Age:</strong>
+             <p>{{user.age}}</p>
+          </div>
+          <hr>
+          <div>
+            <strong>Last Active:</strong>
+            <p>{{user.lastActive | timeAgo}}</p>
+          </div>
+          <hr>
+          <div>
+             <strong>Member Since:</strong>
+             <p>{{user.created | date: 'mediumDate'}}</p>
+          </div>
+          <hr>
+        </div>
+    <div class="card-footer">
+      <div class="btn-group d-flex">
+        <button mat-flat-button color="primary" class="btn btn-dark" style="width: 100%" (click)="sendLike(user.id)">Like</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="col-sm-8" >
+      <div class="tab-panel" style="background-color:rgb(76, 62, 62)">
+    <mat-tab-group dynamicHeight="true" class="member-tabset" #memberTabs style="color:#ffff">
+      <mat-tab label="Messages">
+        <app-member-messages [recipientId]="user.id"></app-member-messages>
+    </mat-tab>
+      <mat-tab label="About {{user.knownAs}}">
+        <br>
+        <strong>Description</strong>
+        <hr>
+        <p>{{user.introduction}}</p>
+        <br>
+      </mat-tab>
+      <mat-tab label="Looking For">
+          <br>
+          <strong>Looking For</strong>
+          <hr>
+          <p>{{user.lookingFor}}</p>
+          <br>
+      </mat-tab>
+      <mat-tab label="Interests">
+          <br>
+          <strong>Interests</strong>
+          <hr>
+          <p>{{user.interests}}</p>
+          <br>
+      </mat-tab>
+      <mat-tab label="Photos">
+        <br>
+        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+        <hr>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  </div>
+</div>

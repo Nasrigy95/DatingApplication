@@ -1,0 +1,14 @@
+.table-hover:hover {
+    margin-top: 15px;
+    background-color: grey;
+    cursor: pointer;
+}
+.img-circle {
+    max-width: 50px;
+}
+
+td {
+    vertical-align: middle;
+}
+
+

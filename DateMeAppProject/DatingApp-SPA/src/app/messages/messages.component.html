@@ -1,0 +1,69 @@
+<div class="text-center mt-3">
+  <h1><strong>Messages</strong></h1>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="btn-group">
+        <button mat-stroked-button color="primary" [(ngModel)]="messageContainer" btnRadio="Unread" (click)="loadMessages()">
+          <mat-icon style="font-size: 135%">markunread</mat-icon>
+          Unread
+        </button>
+      <button mat-stroked-button color="primary" [(ngModel)]="messageContainer" btnRadio="Inbox" (click)="loadMessages()">
+        <mat-icon style="font-size: 135%">drafts</mat-icon>
+        Inbox
+      </button>
+      <button mat-stroked-button color="primary" [(ngModel)]="messageContainer" btnRadio="Outbox" (click)="loadMessages()">
+          <mat-icon style="font-size: 135%">send</mat-icon>
+          Outbox
+        </button>
+    </div>
+  </div>
+  <br>
+
+  <div class="row" *ngIf="messages.length == 0">
+    <h5> <strong>You don't have any messages yet</strong></h5>
+  </div>
+
+  <div class="row" *ngIf="messages.length > 0">
+    <table class="table" style="color: white;">
+      <tr>
+        <th style="width: 40%">Message</th>
+        <th style="width: 20%">From / To</th>
+        <th style="width: 20%">Sent / Received</th>
+        <th style="width: 20%"></th>
+      </tr>
+      <tr class="table table-hover" style="color: white;" *ngFor="let message of messages" [routerLink]="['/members', 
+        messageContainer == 'Outbox' ? message.recipientId : message.senderId]"
+        >
+        <td>{{message.content}}</td>
+        <td>
+          <div *ngIf="messageContainer != 'Outbox'">
+                <img src={{message?.senderPhotoUrl}} class="img-circle rounded-circle mr-2">
+                <strong>{{message.senderKnownAs}}</strong>
+          </div>
+          <div *ngIf="messageContainer == 'Outbox'">
+                <img src={{message?.recipientPhotoUrl}} class="img-circle rounded-circle mr-2">
+                <strong>{{message.recipientKnownAs}}</strong>
+          </div>
+        </td>
+        <td>{{message.messageSent | timeAgo}}</td>
+        <td>
+            <mat-icon color="warn" (click)="$event.stopPropagation()" (click)="deleteMessage(message.id)">delete_sweep</mat-icon>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+</div>
+
+<div class="d-flex justify-content-center">
+    <pagination [boundaryLinks]="true" 
+                [totalItems]="pagination.totalItems"
+                [itemsPerPage]="pagination.itemsPerPage"
+                [(ngModel)]="pagination.currentPage"
+                (pageChanged)="pageChanged($event)"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+  </pagination>
+  </div>

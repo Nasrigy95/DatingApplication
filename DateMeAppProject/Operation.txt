@@ -1,0 +1,17 @@
+DateMe APP - .NET Core Web API + Angular v2+ (v7): 
+
+Before running the app:
+1- go to Startup.cs class and uncomment the command seeder.SeedUsers() only once on the first run  
+2- in the terminal go to DatingApp.API folder and run the command- dotnet ef database update 
+to seed some random fake users details to the app. 
+3- run the command dotnet run to physical seed the users in the app after finish successfully comment back the seeder.SeedUsers().
+4- now go to the DatingApp-SPA folder in the terminal and run the command- npm install
+
+To run the app on localhost:4200 live server: 
+1-use command dotnet watch run (In the DatingApp.API folder).
+2-use command ng serve to run the client side (In the DatingApp-SPA folder).
+*the changes you made in the code reflects immediately on the page that displayed.
+
+To run the app in localhost:5000 - 
+the physical SPA files are in wwwroot folder in DatingApp.API folder,
+now we can run the app with the command: dotnet run (You need to be on DatingApp.API folder)

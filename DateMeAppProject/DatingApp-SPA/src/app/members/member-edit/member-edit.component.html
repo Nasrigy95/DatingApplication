@@ -1,0 +1,81 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+        <h1>Your Profile</h1>
+    </div>
+    <div class="col-sm-8">
+      <div class="alert alert-info" *ngIf="editForm.dirty">
+        <strong>Information:</strong> You have made changes. Any unsaved changes will be lost!
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+          <img class="card-img-top img-thumbnail" src="{{photoUrl || '../../../assets/user.png'}}" alt="{{user.knownAs}}">
+        <div class="card-body">
+          <div>
+            <strong>Location</strong>
+            <p>{{user.city}}, {{user.country}}</p>
+          </div>
+          <hr>
+          <div>
+             <strong>Age:</strong>
+             <p>{{user.age}}</p>
+          </div>
+          <hr>
+          <div>
+            <strong>Last Active:</strong>
+            <p>{{user.lastActive | timeAgo}}</p>
+          </div>
+          <hr>
+          <div>
+             <strong>Member Since:</strong>
+             <p>{{user.created | date: 'mediumDate'}}</p>
+          </div>
+          <hr>
+        </div>
+    <div class="card-footer">
+        <button mat-button color="primary" [disabled]="!editForm.dirty" form="editForm" class="btn btn-dark" style="width: 100%">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+    <div class="col-sm-8">
+      <div class="tab-panel" style="background-color:rgb(76, 62, 62)">
+        <mat-tab-group dynamicHeight="true" style="color:#ffff">
+          <mat-tab label="Edit Profile">
+            <form class="full-width" #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
+              <hr>
+              <mat-form-field class="col-sm-12">
+                <textarea matInput placeholder="Description :" rows="5" name="introduction" [(ngModel)]="user.introduction" ></textarea>
+              </mat-form-field> 
+              <hr>
+              <mat-form-field class="col-sm-12">
+                  <textarea matInput placeholder="Looking For :" rows="4" name="lookingfor" [(ngModel)]="user.lookingFor"></textarea>
+                </mat-form-field>
+                <hr>
+                <mat-form-field class="col-sm-12">
+                    <textarea matInput placeholder="Interests :" rows="4" name="interests" [(ngModel)]="user.interests"></textarea>
+                  </mat-form-field>
+                <hr>
+                <mat-form-field class="col-sm-6">
+                  <input matInput type="text" name="city" 
+                  placeholder="City" [(ngModel)]="user.city">
+                </mat-form-field>
+                  <mat-form-field class="col-sm-6">
+                    <input matInput type="text" name="country" 
+                    placeholder="Country" [(ngModel)]="user.country">
+                  </mat-form-field>
+            </form>
+             
+          </mat-tab>
+          <mat-tab label="Edit Photos">
+            <app-photo-editor [photos]="user.photos"
+              (getMemberPhotoChange)="updateMainPhoto($event)"></app-photo-editor>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+    </div>
+</div>

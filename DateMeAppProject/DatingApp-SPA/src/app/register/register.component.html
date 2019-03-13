@@ -1,0 +1,93 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+  <h1 class="text-center" style="color:#fff">Sign Up</h1>
+  <hr>
+
+  <mat-radio-group>
+    <mat-label class="control-label" style="margin-right:10px; font-size:100%; color:#ffffff"><strong>Gender :</strong> </mat-label>
+    <mat-radio-button class="radio-inline" value="male">Male</mat-radio-button>
+    <mat-radio-button class="radio-inline ml-3" value="female">Female</mat-radio-button>
+  </mat-radio-group>
+<hr>
+
+<mat-form-field class="full-width">
+    <input matInput placeholder="Username" formControlName="username" [ngClass]="{'is-invalid': registerForm.get('username').errors
+    && registerForm.get('username').touched}" required>
+    <mat-error *ngIf="registerForm.get('username').touched && registerForm.get('username').hasError('required')">
+        Username is <strong>required</strong>
+           </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+      <input matInput placeholder="Known As" formControlName="knownAs" [ngClass]="{'is-invalid': registerForm.get('knownAs').errors && registerForm.get('knownAs').touched}" required>
+      <mat-error *ngIf="registerForm.get('knownAs').touched && registerForm.get('knownAs').hasError('required')">
+      Known as is <strong>required</strong>
+    </mat-error>
+      </mat-form-field>
+
+  <mat-form-field class="full-width">
+      <input matInput [matDatepicker]="picker" placeholder="Date of Birth" 
+      [ngClass]="{'is-invalid': registerForm.get('dateOfBirth').errors && registerForm.get('dateOfBirth').touched}"
+      formControlName="dateOfBirth" type="text" required>
+      <mat-error *ngIf="registerForm.get('dateOfBirth').touched && registerForm.get('dateOfBirth').hasError('required')">
+          Date of Birth is <strong>required</strong></mat-error>
+      <mat-datepicker-toggle matSuffix [for]="picker" style="color:black"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+  <mat-form-field class="full-width">
+      <input matInput placeholder="City" formControlName="city" [ngClass]="{'is-invalid': registerForm.get('city').errors && registerForm.get('city').touched}" required>
+      <mat-error *ngIf="registerForm.get('city').touched && registerForm.get('city').hasError('required')">
+          City is <strong>required</strong>
+             </mat-error>
+    </mat-form-field>
+
+  <mat-form-field class="full-width">
+      <input matInput placeholder="Country" formControlName="country" [ngClass]="{'is-invalid': registerForm.get('country').errors && registerForm.get('country').touched}" required>
+      <mat-error *ngIf="registerForm.get('country').touched && registerForm.get('country').hasError('required')">
+          Country is <strong>required</strong>
+             </mat-error>
+    </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input type="password" matInput placeholder="Password" formControlName="password"
+        [ngClass]="{'is-invalid': registerForm.get('password').errors
+        && registerForm.get('password').touched}" required>
+        <mat-error *ngIf="registerForm.get('password').hasError('required')
+        && registerForm.get('password').touched">
+        Password is required
+      </mat-error>
+        <mat-error *ngIf="registerForm.get('password').hasError('minlength')
+        && registerForm.get('password').touched">
+        Password must be at least 5 characters
+        </mat-error>
+        <mat-error *ngIf="registerForm.get('password').hasError('maxlength')
+        && registerForm.get('password').touched">
+        Password cannot exceed 12 characters
+        </mat-error>
+      </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <input type="password" 
+        matInput placeholder="Confirm Password" 
+        formControlName="confirmPassword"
+        [ngClass]="{'is-invalid': registerForm.get('confirmPassword').errors
+          && registerForm.get('confirmPassword').touched
+          || registerForm.get('confirmPassword').touched
+          && registerForm.hasError('mismatch')}" required>
+        <mat-error *ngIf="registerForm.get('confirmPassword').hasError('required')
+        && registerForm.get('confirmPassword').touched">
+        Password is <strong>required</strong>
+      </mat-error>
+        <mat-error *ngIf="registerForm.hasError('mismatch')
+        && registerForm.get('confirmPassword').touched">
+        Password must <strong>match</strong>
+        </mat-error>
+      </mat-form-field>
+      <hr>
+
+  <div class="form-group text-center">
+    <button mat-raised-button class="btn btn-dark" [disabled]="!registerForm.valid" color="primary" type="submit">Register</button>
+    <button mat-raised-button class="btn btn-default btn-dark" type="button" (click)="cancel()">Cancel</button>
+  </div>
+  
+</form>

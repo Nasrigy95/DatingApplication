@@ -1,0 +1,21 @@
+
+<div class="container mt-6" class="bgimage">
+ <br>
+  <div *ngIf="!registerMode" [hidden]="loggedIn()" style="text-align: center">
+    <h1 style="font-size: 50px"><strong>Find Your Love</strong></h1>
+    
+    <h4 class="hide">All you need to do is sign up!</h4>
+    <div class="text-center">
+      <br>
+      <button mat-raised-button style="width:20%; line-height: 350%; font-size: 120%" class="btn btn-dark mr-2" (click)="registerToggle()"><strong>Sign Up Now!</strong></button>
+    </div>
+  </div>
+
+  <div *ngIf="registerMode" class="container">
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register> 
+      </div>
+    </div>
+  </div>
+</div>
